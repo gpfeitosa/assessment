@@ -19,14 +19,19 @@ import java.beans.ExceptionListener;
 @RestController
 public class AuthenticationController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
+    private final MyUserDetailsService myUserDetailsService;
+    private final JwtUtils jwtUtils;
 
-    @Autowired
-    private MyUserDetailsService myUserDetailsService;
-
-    @Autowired
-    private JwtUtils jwtUtils;
+    public AuthenticationController(
+            AuthenticationManager authenticationManager,
+            MyUserDetailsService myUserDetailsService,
+            JwtUtils jwtUtils
+    ) {
+        this.authenticationManager = authenticationManager;
+        this.myUserDetailsService = myUserDetailsService;
+        this.jwtUtils = jwtUtils;
+    }
 
     @PostMapping("/authenticate")
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
