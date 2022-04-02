@@ -1,0 +1,26 @@
+version: "3"
+services:
+  mongodb:
+    image: mongo:4.2.6
+    container_name: mongodb
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - MONGO_DATA:/data/db
+    ports:
+      - 27017:27017
+    command: mongod
+  api:
+    container_name: api
+    build:
+      context: api
+      dockerfile: Dockerfile
+    image: openjdk:11-jdk-alpine
+    ports:
+      - 8080:8080
+    depends_on:
+      - mongodb
+
+volumes:
+  MONGO_DATA:
