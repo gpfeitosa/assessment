@@ -1,5 +1,13 @@
 version: "3"
 services:
+  frontend:
+    container_name: frontend
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    stdin_open: true
   mongodb:
     image: mongo:4.2.6
     container_name: mongodb
