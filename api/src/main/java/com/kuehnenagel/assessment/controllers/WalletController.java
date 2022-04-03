@@ -2,9 +2,15 @@ package com.kuehnenagel.assessment.controllers;
 
 import com.kuehnenagel.assessment.domain.Wallet;
 import com.kuehnenagel.assessment.services.WalletService;
+import com.kuehnenagel.assessment.vo.DeleteWalletRequest;
 import com.kuehnenagel.assessment.vo.DepositRequest;
+import com.kuehnenagel.assessment.vo.TransferRequest;
+import com.kuehnenagel.assessment.vo.WithdrawalRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -37,6 +43,25 @@ public class WalletController {
     public ResponseEntity<Wallet> makeDeposit(@Valid @RequestBody DepositRequest depositRequest) {
         Wallet wallet = walletService.makeDeposit(depositRequest);
         return ResponseEntity.ok(wallet);
+    }
+
+    @PutMapping("/withdraw")
+    public ResponseEntity<Wallet> makeWithdrawal(@Valid @RequestBody WithdrawalRequest withdrawalRequest) {
+        Wallet wallet = walletService.makeWithdrawal(withdrawalRequest);
+        return ResponseEntity.ok(wallet);
+    }
+
+    @DeleteMapping("/")
+    public ResponseEntity deleteWallet(@Valid @RequestBody DeleteWalletRequest deleteWalletRequest) {
+        walletService.deleteWallet(deleteWalletRequest);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/transfer")
+    @Transactional
+    public ResponseEntity transfer(@Valid @RequestBody TransferRequest transferRequest) {
+        walletService.transfer(transferRequest);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
