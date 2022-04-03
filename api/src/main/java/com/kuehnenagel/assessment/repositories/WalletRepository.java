@@ -42,4 +42,14 @@ public class WalletRepository {
         mongoOperations.updateFirst(query, update, Wallet.class);
         return updatedWallet;
     }
+
+    public Wallet getByIdAndOwnerId(String walletId, String ownerId) {
+        Query query = Query.query(Criteria.where("_id").is(walletId).and("owner.id").is(ownerId));
+
+        return mongoOperations.findOne(query, Wallet.class);
+    }
+
+    public void delete(Wallet wallet) {
+        mongoOperations.remove(wallet);
+    }
 }
