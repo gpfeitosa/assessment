@@ -1,10 +1,9 @@
 package com.kuehnenagel.assessment.controllers;
 
-import com.kuehnenagel.assessment.config.MyUserDetailsService;
+import com.kuehnenagel.assessment.config.CustomUserDetailsService;
 import com.kuehnenagel.assessment.utils.JwtUtils;
 import com.kuehnenagel.assessment.vo.AuthenticationRequest;
 import com.kuehnenagel.assessment.vo.AuthenticationResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,22 +13,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.beans.ExceptionListener;
-
 @RestController
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;
-    private final MyUserDetailsService myUserDetailsService;
+    private final CustomUserDetailsService customUserDetailsService;
     private final JwtUtils jwtUtils;
 
     public AuthenticationController(
             AuthenticationManager authenticationManager,
-            MyUserDetailsService myUserDetailsService,
+            CustomUserDetailsService customUserDetailsService,
             JwtUtils jwtUtils
     ) {
         this.authenticationManager = authenticationManager;
-        this.myUserDetailsService = myUserDetailsService;
+        this.customUserDetailsService = customUserDetailsService;
         this.jwtUtils = jwtUtils;
     }
 
@@ -45,7 +42,7 @@ public class AuthenticationController {
             throw new Exception("Incorrect username or password", e);
         }
 
-        final UserDetails userDetails = myUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+        final UserDetails userDetails = customUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
         final String jwt = jwtUtils.generateToken(userDetails);
 

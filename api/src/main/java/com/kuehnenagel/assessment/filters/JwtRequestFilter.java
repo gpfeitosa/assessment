@@ -1,8 +1,7 @@
 package com.kuehnenagel.assessment.filters;
 
-import com.kuehnenagel.assessment.config.MyUserDetailsService;
+import com.kuehnenagel.assessment.config.CustomUserDetailsService;
 import com.kuehnenagel.assessment.utils.JwtUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,11 +19,11 @@ import java.io.IOException;
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     private final JwtUtils jwtUtils;
-    private final MyUserDetailsService myUserDetailsService;
+    private final CustomUserDetailsService customUserDetailsService;
 
-    public JwtRequestFilter(JwtUtils jwtUtils, MyUserDetailsService myUserDetailsService) {
+    public JwtRequestFilter(JwtUtils jwtUtils, CustomUserDetailsService customUserDetailsService) {
         this.jwtUtils = jwtUtils;
-        this.myUserDetailsService = myUserDetailsService;
+        this.customUserDetailsService = customUserDetailsService;
     }
 
     @Override
@@ -42,7 +41,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.myUserDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = this.customUserDetailsService.loadUserByUsername(username);
 
             if (jwtUtils.validateToken(jwt, userDetails)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
