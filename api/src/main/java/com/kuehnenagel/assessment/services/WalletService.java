@@ -54,7 +54,6 @@ public class WalletService {
         );
 
         if (wallet == null || wallet.getBalance() < withdrawalRequest.getAmount()) {
-            // TODO custom exception
             return wallet;
         }
 
@@ -85,7 +84,6 @@ public class WalletService {
 
         Double amount = transferRequest.getAmount();
         if (sourceWallet == null || sourceWallet.getBalance() < amount) {
-            // TODO custom exceptions
             return;
         }
 

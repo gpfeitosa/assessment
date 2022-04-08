@@ -2,12 +2,14 @@ package com.kuehnenagel.assessment.controllers;
 
 import com.kuehnenagel.assessment.domain.Wallet;
 import com.kuehnenagel.assessment.services.WalletService;
-import com.kuehnenagel.assessment.vo.*;
+import com.kuehnenagel.assessment.vo.CreateWalletRequest;
+import com.kuehnenagel.assessment.vo.DepositRequest;
+import com.kuehnenagel.assessment.vo.TransferRequest;
+import com.kuehnenagel.assessment.vo.WithdrawalRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
