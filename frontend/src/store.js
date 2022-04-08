@@ -2,12 +2,12 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { userLoginReducer, userRegisterReducer } from './reducers/userReducers';
-import { getAllWalletsReducer } from './reducers/walletReducer';
+import { walletReducer } from './reducers/walletReducer';
 
 const reducer = combineReducers({
 	userLogin: userLoginReducer,
 	userRegister: userRegisterReducer,
-	allWallets: getAllWalletsReducer,
+	walletReducer: walletReducer,
 });
 
 const initialState = {};
