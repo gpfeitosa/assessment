@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Form, Button, InputGroup, Container } from 'react-bootstrap';
+import { Form, Button, Container, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../actions/userActions';
-import FormContainer from '../components/FormContainer';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import FormElement from '../components/FormElement';
 
 const SignIn = () => {
 	const [username, setUsername] = useState('');
@@ -23,46 +23,44 @@ const SignIn = () => {
 		}
 	}, [navigate, data]);
 
+	const handleUsernameChange = (e) => {
+		setUsername(e.target.value);
+	};
+
+	const handlePasswordChange = (e) => {
+		setPassword(e.target.value);
+	};
+
 	const submitHandler = (e) => {
 		e.preventDefault();
 		dispatch(login(username, password));
 	};
 
 	return (
-		<FormContainer>
-			<h1>Sign In</h1>
+		<Container>
+			<Row className="justify-content-md-center" style={{ fontSize: '32px' }}>
+				Sign In
+			</Row>
 			{error && <Message variant="danger">{error}</Message>}
 			{loading && <Loader />}
-			<Form onSubmit={submitHandler}>
-				<Form.Group controlId="email">
-					<Form.Label>Username</Form.Label>
-					<InputGroup hasValidation>
-						<Form.Control
-							required
-							type="text"
-							placeholder="Username"
-							onChange={(e) => setUsername(e.target.value)}
-						></Form.Control>
-						<Form.Control.Feedback type="invalid">
-							This field is required.
-						</Form.Control.Feedback>
-					</InputGroup>
-				</Form.Group>
+			<Form noValidate onSubmit={submitHandler}>
+				<FormElement
+					controlId={'username'}
+					label={'Username'}
+					type={'text'}
+					as={'input'}
+					placeholder={'Username'}
+					onChange={handleUsernameChange}
+				/>
 
-				<Form.Group controlId="password">
-					<Form.Label>Password</Form.Label>
-					<InputGroup hasValidation>
-						<Form.Control
-							required
-							type="password"
-							placeholder="Password"
-							onChange={(e) => setPassword(e.target.value)}
-						></Form.Control>
-						<Form.Control.Feedback type="invalid">
-							This field is required.
-						</Form.Control.Feedback>
-					</InputGroup>
-				</Form.Group>
+				<FormElement
+					controlId={'password'}
+					label={'Password'}
+					type={'password'}
+					as={'input'}
+					placeholder={'Password'}
+					onChange={handlePasswordChange}
+				/>
 
 				<Container
 					style={{
@@ -70,17 +68,21 @@ const SignIn = () => {
 						justifyContent: 'center',
 					}}
 				>
-					<Button type="submit" variant="outline-primary">
+					<Button
+						type="submit"
+						variant="outline-primary"
+						style={{ margin: '8px' }}
+					>
 						{loading ? 'Loading...' : 'Sign In'}
 					</Button>
 					<Link to="/signup">
-						<Button variant="outline-secondary">
+						<Button variant="outline-secondary" style={{ margin: '8px' }}>
 							{loading ? 'Loading...' : 'Sign Up'}
 						</Button>
 					</Link>
 				</Container>
 			</Form>
-		</FormContainer>
+		</Container>
 	);
 };
 
