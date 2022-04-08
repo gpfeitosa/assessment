@@ -2,10 +2,7 @@ package com.kuehnenagel.assessment.controllers;
 
 import com.kuehnenagel.assessment.domain.Wallet;
 import com.kuehnenagel.assessment.services.WalletService;
-import com.kuehnenagel.assessment.vo.DeleteWalletRequest;
-import com.kuehnenagel.assessment.vo.DepositRequest;
-import com.kuehnenagel.assessment.vo.TransferRequest;
-import com.kuehnenagel.assessment.vo.WithdrawalRequest;
+import com.kuehnenagel.assessment.vo.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,8 +25,8 @@ public class WalletController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Wallet> createWallet() {
-        Wallet wallet = walletService.createWallet();
+    public ResponseEntity<Wallet> createWallet(@RequestBody CreateWalletRequest createWalletRequest) {
+        Wallet wallet = walletService.createWallet(createWalletRequest);
         return ResponseEntity.ok(wallet);
     }
 
@@ -51,9 +48,9 @@ public class WalletController {
         return ResponseEntity.ok(wallet);
     }
 
-    @DeleteMapping("/")
-    public ResponseEntity deleteWallet(@Valid @RequestBody DeleteWalletRequest deleteWalletRequest) {
-        walletService.deleteWallet(deleteWalletRequest);
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteWallet(@PathVariable String id) {
+        walletService.deleteWallet(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

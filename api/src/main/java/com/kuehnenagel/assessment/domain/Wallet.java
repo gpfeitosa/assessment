@@ -8,13 +8,15 @@ public class Wallet {
 
     private User owner;
     private Double balance;
+    private String name;
 
     public Wallet() {}
 
-    public Wallet(String id, User owner, Double balance) {
+    public Wallet(String id, User owner, String name, Double balance) {
         this.id = id;
         this.owner = owner;
         this.balance = balance;
+        this.name = name;
     }
 
     public String getId() {
@@ -39,5 +41,13 @@ public class Wallet {
 
     public void setBalance(Double balance) {
         this.balance = balance;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

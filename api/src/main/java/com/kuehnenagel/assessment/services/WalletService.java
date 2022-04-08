@@ -4,10 +4,7 @@ import com.kuehnenagel.assessment.domain.User;
 import com.kuehnenagel.assessment.domain.Wallet;
 import com.kuehnenagel.assessment.repositories.WalletRepository;
 import com.kuehnenagel.assessment.utils.ContextUtils;
-import com.kuehnenagel.assessment.vo.DeleteWalletRequest;
-import com.kuehnenagel.assessment.vo.DepositRequest;
-import com.kuehnenagel.assessment.vo.TransferRequest;
-import com.kuehnenagel.assessment.vo.WithdrawalRequest;
+import com.kuehnenagel.assessment.vo.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,11 +20,12 @@ public class WalletService {
         this.contextUtils = contextUtils;
     }
 
-    public Wallet createWallet() {
+    public Wallet createWallet(CreateWalletRequest createWalletRequest) {
         User user = contextUtils.getUserFromSecurityContext();
 
         Wallet wallet = new Wallet();
-        wallet.setBalance(0D);
+        wallet.setBalance(createWalletRequest.getBalance());
+        wallet.setName(createWalletRequest.getName());
         wallet.setOwner(user);
 
         return walletRepository.insert(wallet);
@@ -66,19 +64,16 @@ public class WalletService {
         return walletRepository.update(wallet);
     }
 
-    public void deleteWallet(DeleteWalletRequest deleteWalletRequest) {
+    public void deleteWallet(String walletId) {
         User user = contextUtils.getUserFromSecurityContext();
 
         Wallet wallet = walletRepository.getByIdAndOwnerId(
-                deleteWalletRequest.getWalletId(), user.getId()
+                walletId, user.getId()
         );
 
-        if (wallet == null || wallet.getBalance() > 0) {
-            // TODO custom exception
-            return;
+        if (wallet != null) {
+            walletRepository.delete(wallet);
         }
-
-        walletRepository.delete(wallet);
     }
 
     public void transfer(TransferRequest transferRequest) {
