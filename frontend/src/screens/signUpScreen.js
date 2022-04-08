@@ -51,7 +51,7 @@ const SignUp = () => {
 			<Form noValidate onSubmit={submitHandler}>
 				<FormElement
 					controlId={'name'}
-					label={'name'}
+					label={'Name'}
 					type={'text'}
 					as={'input'}
 					placeholder={'Name'}

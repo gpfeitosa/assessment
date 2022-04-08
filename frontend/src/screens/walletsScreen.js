@@ -22,9 +22,9 @@ import {
 	IoTrashOutline,
 } from 'react-icons/io5';
 import AmountForm from '../components/AmountForm';
-import { logout } from '../utils/auth.utils';
 import Message from '../components/Message';
 import { useNavigate } from 'react-router-dom';
+import { logout } from '../actions/userActions';
 
 const Wallets = () => {
 	const [creatingNew, setCreatingNew] = useState(false);
@@ -66,7 +66,7 @@ const Wallets = () => {
 	};
 
 	const handleSignOut = () => {
-		logout();
+		dispatch(logout());
 		navigate('/signin');
 	};
 
