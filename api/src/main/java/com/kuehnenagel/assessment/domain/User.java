@@ -1,13 +1,10 @@
 package com.kuehnenagel.assessment.domain;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 
 public class User {
     @Id
     private String id;
-
-    @Indexed(unique = true)
     private String username;
     private String password;
     private String name;
