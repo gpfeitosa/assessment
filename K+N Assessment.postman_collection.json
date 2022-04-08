@@ -1,0 +1,185 @@
+{
+	"variables": [],
+	"info": {
+		"name": "K+N Assessment",
+		"_postman_id": "73297068-2164-4690-b3e1-9bcabc1ba00f",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authenticate",
+			"request": {
+				"url": "http://localhost:8080/authenticate",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"username\",\n\t\"password\": \"password\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Wallet",
+			"request": {
+				"url": "http://localhost:8080/wallet/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsImV4cCI6MTY0OTM2OTc0MiwiaWF0IjoxNjQ5MzY2MTQyfQ.3tZKuQaB6zoqeC5omis8YNC-1IS_HC_qOKFwf-iEKFM",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Wallet 1\",\n\t\"balance\": 13.5\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"url": "http://localhost:8080/user/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"name\",\n\t\"username\": \"username\",\n\t\"password\": \"password\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get all wallets",
+			"request": {
+				"url": "http://localhost:8080/wallet/all",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsImV4cCI6MTY0OTM3Mjc0NCwiaWF0IjoxNjQ5MzY5MTQ0fQ.aYFaCn0tWv45_q0vdBbBdpiCxsvb9AulAGB4BOoawRo",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Make deposit",
+			"request": {
+				"url": "http://localhost:8080/wallet/deposit",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsImV4cCI6MTY0OTAxMjYxMywiaWF0IjoxNjQ5MDA5MDEzfQ.ozc60BUfMdi1kilBN-ZHZ8NEevuox20eKMz9ChhHZNY",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"walletId\": \"62497b9350815f4765e7877b\",\n\t\"amount\": 11111.43\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Make withdrawal",
+			"request": {
+				"url": "http://localhost:8080/wallet/withdraw",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsImV4cCI6MTY0OTAxMjYxMywiaWF0IjoxNjQ5MDA5MDEzfQ.ozc60BUfMdi1kilBN-ZHZ8NEevuox20eKMz9ChhHZNY",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"walletId\": \"62497b9350815f4765e7877b\",\n\t\"amount\": 110.43242\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete wallet",
+			"request": {
+				"url": "http://localhost:8080/wallet/62497b9350815f4765e7877b",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsImV4cCI6MTY0OTM3Mjc0NCwiaWF0IjoxNjQ5MzY5MTQ0fQ.aYFaCn0tWv45_q0vdBbBdpiCxsvb9AulAGB4BOoawRo",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Make transfer",
+			"request": {
+				"url": "http://localhost:8080/wallet/transfer",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsImV4cCI6MTY0OTAxMjYxMywiaWF0IjoxNjQ5MDA5MDEzfQ.ozc60BUfMdi1kilBN-ZHZ8NEevuox20eKMz9ChhHZNY",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"sourceWalletId\": \"62497cebc84daf30b6c87c20\",\n\t\"targetWalletId\": \"62497b9350815f4765e7877b\",\n\t\"amount\": 14.0\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
